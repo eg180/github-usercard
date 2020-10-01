@@ -11,9 +11,13 @@
 //   });
 // };
 
-const erickGitHubData = axios.get('https://api.github.com/users/eg180');
-
-console.log(erickGitHubData);
+const erickGitHubData = axios.get('https://api.github.com/users/eg180')
+.then(res => {
+  console.log('And here is the data: ', res.data);
+})
+.catch(err => {
+  console.log('There was an error: ', err);
+});
 
 
 
@@ -73,3 +77,39 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+
+function gitHubCard( {dataObject } ) {
+
+  const cardContainer = document.createElement('div');
+  cardContainer.classList.add('card');
+
+  const profileImage = document.createElement('img');
+
+  const divv = document.createElement('div');
+  divv.classList.add('card-info');
+
+  const userName = document.createElement('h3');
+  userName.textContent = 'eg180';
+  userName.classList.add('username');
+
+  const location = document.createElement('p');
+  location.textContent = 'Location - hardcoded';
+
+  // const profileInfo = document.createElement('p');
+
+  // creating the hierarchy
+
+  cardContainer.appendChild(profileImage);
+  cardContainer.appendChild(divv);
+  cardContainer.appendChild(userName);
+  cardContainer.appendChild(location);
+
+
+  return cardContainer;
+}
+
+
+console.log(gitHubCard(erickGitHubData));
+
