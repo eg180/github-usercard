@@ -13,11 +13,17 @@
 
 const erickGitHubData = axios.get('https://api.github.com/users/eg180')
 .then(res => {
-  console.log('And here is the data: ', res.data);
+  console.log('And here is the data: ', res);
+  return res;
 })
 .catch(err => {
   console.log('There was an error: ', err);
 });
+
+console.log(erickGitHubData.data.name);
+
+
+
 
 
 
