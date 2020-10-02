@@ -13,14 +13,20 @@
 
 const erickGitHubData = axios.get('https://api.github.com/users/eg180')
 .then(res => {
-  console.log('And here is the data: ', res);
-  return res;
+  // console.log('And here is the data: ', res);
+  
+  const gitHubCard = gitHubCardMaker(res);
+  entryPoint.append(gitHubCard);
+  
+
 })
 .catch(err => {
   console.log('There was an error: ', err);
 });
 
-console.log(erickGitHubData.data.name);
+
+
+
 
 
 
@@ -83,39 +89,43 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const entryPoint = document.querySelector('.cards');
+
+
+function gitHubCardMaker(dataObject) {
 
 
 
-function gitHubCard( {dataObject } ) {
-
-  const cardContainer = document.createElement('div');
-  cardContainer.classList.add('card');
+  const gitHubCard = document.createElement('div');
+  gitHubCard.classList.add('card');
 
   const profileImage = document.createElement('img');
+  profileImage.src = dataObject.data.avatar_url;
 
   const divv = document.createElement('div');
   divv.classList.add('card-info');
 
   const userName = document.createElement('h3');
-  userName.textContent = 'eg180';
+  userName.textContent = dataObject.data.login;
   userName.classList.add('username');
 
   const location = document.createElement('p');
-  location.textContent = 'Location - hardcoded';
+  location.textContent = dataObject.data.location;
 
   // const profileInfo = document.createElement('p');
 
   // creating the hierarchy
 
-  cardContainer.appendChild(profileImage);
-  cardContainer.appendChild(divv);
-  cardContainer.appendChild(userName);
-  cardContainer.appendChild(location);
+  gitHubCard.appendChild(profileImage);
+  gitHubCard.appendChild(divv);
+  gitHubCard.appendChild(userName);
+  gitHubCard.appendChild(location);
 
-
-  return cardContainer;
+  return gitHubCard;
+  
 }
 
 
-console.log(gitHubCard(erickGitHubData));
+
+
 
