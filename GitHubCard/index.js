@@ -99,27 +99,58 @@ function gitHubCardMaker(dataObject) {
   const gitHubCard = document.createElement('div');
   gitHubCard.classList.add('card');
 
-  const profileImage = document.createElement('img');
+  
+    const profileImage = document.createElement('img');
   profileImage.src = dataObject.data.avatar_url;
+  gitHubCard.appendChild(profileImage);
+
+
+
+
+
+
+  const gitHubCardGuts = document.createElement('div');
+  gitHubCardGuts.classList.add('card-info');
+
 
   const divv = document.createElement('div');
   divv.classList.add('card-info');
+  gitHubCardGuts.appendChild(divv);
 
   const userName = document.createElement('h3');
   userName.textContent = dataObject.data.login;
   userName.classList.add('username');
+  gitHubCardGuts.appendChild(userName);
 
   const location = document.createElement('p');
   location.textContent = dataObject.data.location;
+  gitHubCardGuts.appendChild(location);
 
-  // const profileInfo = document.createElement('p');
+  const profileInfo = document.createElement('p');
+  profileInfo.textContent = 'Profile: ';
+  const profileLink = document.createElement('a');
+  profileLink.setAttribute('href', dataObject.data.html_url);
+  profileLink.textContent = dataObject.data.html_url;
+  profileInfo.appendChild(profileLink);
+  gitHubCardGuts.appendChild(profileInfo);
 
-  // creating the hierarchy
+  // followers here
 
-  gitHubCard.appendChild(profileImage);
-  gitHubCard.appendChild(divv);
-  gitHubCard.appendChild(userName);
-  gitHubCard.appendChild(location);
+  followers = document.createElement('p');
+  followers.textContent = `Followers: ${dataObject.data.followers}`;
+  gitHubCardGuts.appendChild(followers);
+
+  // following here
+  
+  following = document.createElement('p');
+  following.textContent = `Following: ${dataObject.data.following}`;
+  gitHubCardGuts.appendChild(following);
+
+  bio = document.createElement('p');
+  bio.textContent = dataObject.data.bio;
+  gitHubCardGuts.appendChild(bio);
+
+  gitHubCard.appendChild(gitHubCardGuts);
 
   return gitHubCard;
   
