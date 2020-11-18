@@ -1,8 +1,39 @@
+
+// import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+// const getData = () => {
+//   axios.get('https://api.github.com/users/eg180').then(response => {
+//     console.log(response);
+//   });
+// };
+
+const erickGitHubData = axios.get('https://api.github.com/users/eg180')
+.then(res => {
+  // console.log('And here is the data: ', res);
+  
+  const gitHubCard = gitHubCardMaker(res);
+  entryPoint.append(gitHubCard);
+  
+
+})
+.catch(err => {
+  console.log('There was an error: ', err);
+});
+
+
+
+
+
+
+
+
+
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -58,3 +89,74 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const entryPoint = document.querySelector('.cards');
+
+
+function gitHubCardMaker(dataObject) {
+
+
+
+  const gitHubCard = document.createElement('div');
+  gitHubCard.classList.add('card');
+
+  
+    const profileImage = document.createElement('img');
+  profileImage.src = dataObject.data.avatar_url;
+  gitHubCard.appendChild(profileImage);
+
+
+
+
+
+
+  const gitHubCardGuts = document.createElement('div');
+  gitHubCardGuts.classList.add('card-info');
+
+
+  const divv = document.createElement('div');
+  divv.classList.add('card-info');
+  gitHubCardGuts.appendChild(divv);
+
+  const userName = document.createElement('h3');
+  userName.textContent = dataObject.data.login;
+  userName.classList.add('username');
+  gitHubCardGuts.appendChild(userName);
+
+  const location = document.createElement('p');
+  location.textContent = dataObject.data.location;
+  gitHubCardGuts.appendChild(location);
+
+  const profileInfo = document.createElement('p');
+  profileInfo.textContent = 'Profile: ';
+  const profileLink = document.createElement('a');
+  profileLink.setAttribute('href', dataObject.data.html_url);
+  profileLink.textContent = dataObject.data.html_url;
+  profileInfo.appendChild(profileLink);
+  gitHubCardGuts.appendChild(profileInfo);
+
+  // followers here
+
+  followers = document.createElement('p');
+  followers.textContent = `Followers: ${dataObject.data.followers}`;
+  gitHubCardGuts.appendChild(followers);
+
+  // following here
+  
+  following = document.createElement('p');
+  following.textContent = `Following: ${dataObject.data.following}`;
+  gitHubCardGuts.appendChild(following);
+
+  bio = document.createElement('p');
+  bio.textContent = dataObject.data.bio;
+  gitHubCardGuts.appendChild(bio);
+
+  gitHubCard.appendChild(gitHubCardGuts);
+
+  return gitHubCard;
+  
+}
+
+
+
+
+
